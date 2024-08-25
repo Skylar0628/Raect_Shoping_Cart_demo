@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from 'react'
+import NavBar from './components/NavBar'
+import Product from './components/Product'
+import Cart from './components/Cart'
+import Context, { CartReducer,CartInit } from './stroe'
 
-function App() {
+
+
+const App = () => {
+  const reducer = useReducer(CartReducer, CartInit);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  <Context.Provider value={reducer}>
+      <NavBar/>
+      <div className='container mt-4'>
+        <div className='row'>
+          {/*  Product  */}
+          <div className='col-md-7'>
+           <Product/>
+          </div>
+          {/*  Cart  */}
+          <div className='col-md-5'>
+           <Cart/>
+          </div>
+        </div>
+      </div>
+  </Context.Provider>
+  )
 }
 
-export default App;
+export default App
